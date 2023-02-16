@@ -4,6 +4,7 @@
 
 int main() {
   int num, guess, attempts = 0;
+  
   srand(time(NULL));
   num = rand() % 100 + 1; // generate a random number between 1 and 100
 
@@ -20,6 +21,7 @@ int main() {
       printf("Too high! Try again.\n");
     }
   } while (guess != num);
+
 
   printf("Congratulations, you guessed the number in %d attempts!\n", attempts);
 
