@@ -122,7 +122,29 @@ void logic() {
             }
             break;
     }
-    if(snake[0].x == fruit.x && snake[0].y == fruit.y) {
-        length++;
-        score++;
-        fruit.x = rand() % WIDTH
+    if(snake[0].x == fruit.x && snake[
+0].y == fruit.y) {
+score++;
+length++;
+fruit.x = rand() % WIDTH;
+fruit.y = rand() % HEIGHT;
+}
+for(int i=1; i<length; i++) {
+if(snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+printf("Game over!\n");
+printf("Score: %d\n", score);
+exit(0);
+}
+}
+}
+
+int main() {
+setup();
+while(1) {
+draw();
+input();
+logic();
+_sleep(100);
+}
+return 0;
+}
