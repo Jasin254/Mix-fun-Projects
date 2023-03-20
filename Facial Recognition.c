@@ -1,6 +1,8 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
+//Facial Recognition in C
+
 using namespace cv;
 using namespace std;
 
