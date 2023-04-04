@@ -1,6 +1,7 @@
 // Define motor pins
 int leftMotor1 = 2;
 int leftMotor2 = 3;
+//rev
 int rightMotor1 = 4;
 int rightMotor2 = 5;
 
