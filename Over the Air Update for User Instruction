@@ -1,0 +1,66 @@
+#include "main.h"
+#include "string.h"
+#include "stdio.h"
+#include "stdbool.h"
+
+// Include the ESP8266 library
+#include "esp8266.h"
+
+// Other previous definitions and functions
+
+// Function to receive updated user credentials via Wi-Fi
+bool receive_updated_credentials() {
+    // Connect to the Wi-Fi network
+    if (!esp8266_joinAP(YOUR_WIFI_SSID, YOUR_WIFI_PASSWORD)) {
+        printf("Failed to connect to Wi-Fi\n");
+        return false;
+    }
+
+    // Connect to the server hosting the updated user credentials
+    if (!esp8266_connect(TCP, YOUR_SERVER_IP, YOUR_SERVER_PORT)) {
+        printf("Failed to connect to the server\n");
+        return false;
+    }
+
+    // Request the updated user credentials
+    char httpRequest[] = "GET /path/to/your/credentials/file HTTP/1.1\r\n"
+                          "Host: your_server.com\r\n"
+                          "Connection: close\r\n\r\n";
+    esp8266_send(httpRequest);
+
+    // Receive the server's response
+    char response[1024];
+    memset(response, 0, sizeof(response));
+    esp8266_receive(response, sizeof(response), 10000);
+
+    // Disconnect from the server
+    esp8266_disconnect();
+
+    // Parse the updated user credentials from the response
+    // Note: You should implement your own parsing function based on the format of your credentials file
+    parse_updated_credentials(response);
+
+    return true;
+}
+
+int main(void) {
+    // Previous initialization code
+
+    // Initialize the ESP8266 Wi-Fi module
+    if (!esp8266_begin(&huart1)) {
+        printf("Failed to initialize the ESP8266\n");
+        return 1;
+    }
+
+    // Main loop
+    while (1) {
+        // Check for OTA updates
+        if (receive_updated_credentials()) {
+            printf("User credentials updated\n");
+        } else {
+            printf("Failed to update user credentials\n");
+        }
+
+        // The rest of the main loop
+    }
+}
