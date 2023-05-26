@@ -27,7 +27,8 @@ void open_gripper() {
 }
 
 void close_gripper() {
-    // Code to close the gripper
+    // Code to close the gripper4
+    //gripper
     // ...
 }
 
